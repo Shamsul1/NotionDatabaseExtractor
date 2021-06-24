@@ -17,7 +17,7 @@ public class UnzipUtils {
        // unzip(ZIP_FILE_PATH, DESTINATION_FOLDER);
     }
 
-    private static void unZip(String zipFilePath, String destDir) {
+    public static void unZip(String zipFilePath, String destDir) {
         File dir = new File(destDir);
         // create output directory if it doesn't exist
         if(!dir.exists()) dir.mkdirs();

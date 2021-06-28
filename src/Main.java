@@ -12,6 +12,7 @@ public class Main {
     private static final String DESTINATION_PATH = Directories.DESTINATION_FOLDER;
     private static final String LEARNED_STATE = Directories.LEARNED_STATE;
     private static final String REVIEW_STATE = Directories.REVIEW_STATE;
+    public static final String EXTRACTION_FOLDER = Directories.EXTRACTION_FOLDER;
 
     public static void main(String[] args) throws Exception {
 
@@ -50,7 +51,7 @@ public class Main {
 
         for (File file: files) {
 
-            UnzipUtils.unZip(file.getAbsolutePath(),DESTINATION_PATH);
+            UnzipUtils.unZip(file.getAbsolutePath(),EXTRACTION_FOLDER);
 
 
         }
@@ -60,7 +61,7 @@ public class Main {
     // Finds and converts csv files to xlsx files
     private static String getCSVfile(){
 
-        File[] files = FileFinderUtils.findFile(FILE_PATH,".csv");
+        File[] files = FileFinderUtils.findFile(EXTRACTION_FOLDER,".csv");
 
         System.out.println(files.length+" CSV file(s) have been found!");
         for (File file :files) {
@@ -75,13 +76,13 @@ public class Main {
 
        String csvPath = getCSVfile();
 
-        ExcelUtils.convertCSVtoXLSX(csvPath,DESTINATION_PATH);
+        ExcelUtils.convertCSVtoXLSX(csvPath,EXTRACTION_FOLDER);
 
     }
 
     //Finds and gets valid questions from the xlsx file
     private static String getXlSXfile(){
-        File[] files = FileFinderUtils.findFile(FILE_PATH,".xlsx");
+        File[] files = FileFinderUtils.findFile(EXTRACTION_FOLDER,".xlsx");
 
         System.out.println(files.length+" xlsx file(s) have been found!");
         for (File file :files) {
@@ -92,8 +93,9 @@ public class Main {
         return files[0].getAbsolutePath();
     }
     private static List<Question> getValidQuestions() throws IOException {
+        String VALIDATION_STATE = UserInputUtils.getValidationStateUserInpu();
         String filePath = getXlSXfile();
-        List<Question> questions = ExcelUtils.getValidQuestions(filePath,LEARNED_STATE);
+        List<Question> questions = ExcelUtils.getValidQuestions(filePath,VALIDATION_STATE);
         return questions;
 
     }
@@ -101,7 +103,7 @@ public class Main {
 
     private static void getAnswers(List<Question> questions) throws Exception {
 
-        List<String> subFolders = FileFinderUtils.findSubdirectories(Directories.HOME_FOLDER);
+        List<String> subFolders = FileFinderUtils.findSubdirectories(EXTRACTION_FOLDER);
         String subFolder = subFolders.get(0)+"\\";
 
         File[] mdFiles = FileFinderUtils.findFile(subFolder, ".md");

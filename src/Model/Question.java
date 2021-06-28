@@ -2,8 +2,26 @@ package Model;
 
 public class Question {
 
-    private String name;
+    private String question;
+    private String answer;
     private String  mdFileName;
+    private String mdAbsolutePath;
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getMdAbsolutePath() {
+        return mdAbsolutePath;
+    }
+
+    public void setMdAbsolutePath(String mdAbsolutePath) {
+        this.mdAbsolutePath = mdAbsolutePath;
+    }
 
     public String getMdFileName() {
         return mdFileName;
@@ -13,11 +31,11 @@ public class Question {
         this.mdFileName = mdFileName;
     }
 
-    public String getName() {
-        return name;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 }

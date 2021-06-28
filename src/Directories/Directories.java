@@ -3,6 +3,7 @@ package Directories;
 public class Directories {
 
     public static final String DESTINATION_FOLDER = "C:\\Users\\Samsul Karim\\Desktop\\The.Mess.You.Leave.Behind\\";
+    public static final String HOME_FOLDER = "C:\\Users\\Samsul Karim\\Desktop\\The.Mess.You.Leave.Behind\\";
     public static final String LEARNED_STATE = "Learned";
     public static final String REVIEW_STATE = "Review";
     public static final String EXCEL_FILE_PATH = "C:\\Users\\Samsul Karim\\Desktop\\The.Mess.You.Leave.Behind\\excel_file.xlsx";

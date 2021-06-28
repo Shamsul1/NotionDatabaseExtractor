@@ -28,11 +28,11 @@ public class ProcessQuestionUtils {
 
             for(int k = 0; k < questions.size(); k++){
 
-                if( questions.get(k).getName().contains(mdFiles.get(i))){
+                if( questions.get(k).getQuestion().contains(mdFiles.get(i))){
 
                     questions.get(k).setMdFileName(mdFiles.get(i));
 
-                    System.out.println(questions.get(k).getName()+"\n"+mdFiles.get(i)+" is a match!");
+                    System.out.println(questions.get(k).getQuestion()+"\n"+mdFiles.get(i)+" is a match!");
                 }
             }
 
@@ -51,11 +51,23 @@ public class ProcessQuestionUtils {
 
                 if(mdFile[i].getName().contains(questions.get(k).getMdFileName())){
 
-                    System.out.println("Mached md files \n"+questions.get(k).getMdFileName()+"\n"+mdFile[i].getName());
+                    questions.get(k).setMdAbsolutePath(mdFile[i].getAbsolutePath());
                 }
             }
         }
 
+
+
+    }
+
+    public static void addAnswers(List<Question> questions) throws Exception {
+
+
+        for (Question question: questions) {
+
+            question.setAnswer(FileReaderUtils.readMdFile(question.getMdAbsolutePath()).toString());
+
+        }
 
 
     }

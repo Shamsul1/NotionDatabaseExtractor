@@ -18,14 +18,15 @@ public class FileReaderUtils {
 
 
     public static void main(String[] args) throws Exception {
-        readMdFiles();
+
     }
 
 
 
-    public static void readMdFiles() throws Exception {
+    public static StringBuilder readMdFile(String mdFilePath) throws Exception {
 
-        File file = new File(Directories.MD_FILE_PATH);
+        StringBuilder answer = new StringBuilder();
+        File file = new File(mdFilePath);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -34,9 +35,11 @@ public class FileReaderUtils {
 
            if(validateLine(st) != null){
 
-               System.out.println(validateLine(st));
+               answer.append(validateLine(st));
+
            }
         }
+        return answer;
     }
 
 

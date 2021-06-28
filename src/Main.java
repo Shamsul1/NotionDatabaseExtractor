@@ -1,8 +1,6 @@
 import Directories.Directories;
 import Model.Question;
-import Utils.ExcelUtils;
-import Utils.FileFinderUtils;
-import Utils.UnzipUtils;
+import Utils.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,16 +8,20 @@ import java.util.List;
 
 public class Main {
 
-    private static String FILE_PATH = Directories.DESTINATION_FOLDER;
-    private static String DESTINATION_PATH = Directories.DESTINATION_FOLDER;
-    private static String LEARNED_STATE = Directories.LEARNED_STATE;
-    private static String REVIEW_STATE = Directories.REVIEW_STATE;
+    private static final String FILE_PATH = Directories.DESTINATION_FOLDER;
+    private static final String DESTINATION_PATH = Directories.DESTINATION_FOLDER;
+    private static final String LEARNED_STATE = Directories.LEARNED_STATE;
+    private static final String REVIEW_STATE = Directories.REVIEW_STATE;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
 
-        //extractZipFiles();
-        //converCSVtoXLSX();
-        //getValidQuestions();
+        List<Question> questions;
+
+        extractZipFiles();
+        converCSVtoXLSX();
+        questions = getValidQuestions();
+        getAnswers(questions);
+        printQuestions(questions);
     }
 
 
@@ -89,10 +91,41 @@ public class Main {
         System.out.println("---------------------------------------------------");
         return files[0].getAbsolutePath();
     }
-    private static void getValidQuestions() throws IOException {
+    private static List<Question> getValidQuestions() throws IOException {
         String filePath = getXlSXfile();
         List<Question> questions = ExcelUtils.getValidQuestions(filePath,LEARNED_STATE);
-
+        return questions;
 
     }
+
+
+    private static void getAnswers(List<Question> questions) throws Exception {
+
+        List<String> subFolders = FileFinderUtils.findSubdirectories(Directories.HOME_FOLDER);
+        String subFolder = subFolders.get(0)+"\\";
+
+        File[] mdFiles = FileFinderUtils.findFile(subFolder, ".md");
+        List<String> trimmedMDfiles = ProcessFileUtils.trimIDs(mdFiles);
+
+        ProcessQuestionUtils.addMatchingMdFiles(questions,trimmedMDfiles);
+        ProcessQuestionUtils.addMdAbsolutePath(mdFiles,questions);
+        ProcessQuestionUtils.addAnswers(questions);
+
+    }
+
+    private static void printQuestions(List<Question> questions){
+
+        for (Question question: questions) {
+
+            System.out.println("Question: "+question.getQuestion());
+            System.out.println("Answer: "+question.getAnswer());
+            System.out.println("MD name: "+question.getMdFileName());
+            System.out.println("Absolute path: "+question.getMdAbsolutePath());
+            System.out.println("----------------------------------");
+
+        }
+
+    }
+
+
 }

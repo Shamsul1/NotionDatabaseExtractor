@@ -84,7 +84,7 @@ public class ExcelUtils {
 
         System.out.println(questions.size()+" valid questions have been found!");
         for (Question question : questions) {
-            System.out.println(question.getName());
+            System.out.println(question.getQuestion());
         }
         System.out.println("---------------------------------------------------");
         return questions;
@@ -96,7 +96,7 @@ public class ExcelUtils {
 
             Question question = new Question();
 
-            question.setName(row.getCell(1).getStringCellValue());
+            question.setQuestion(row.getCell(1).getStringCellValue());
             return question;
 
         }else {

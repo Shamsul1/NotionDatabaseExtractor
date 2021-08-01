@@ -1,8 +1,11 @@
 package Utils;
 
+import Directories.Directories;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileFinderUtils {
 
@@ -11,17 +14,8 @@ public class FileFinderUtils {
 
 
     public static void main(String[] args) {
-       File[] files =  findFile(FOLDER_PATH, FILE_TYPE_ENDING);
-        for (File file :files) {
-            System.out.println(file.getName().toString());
-        }
 
-       ArrayList<String> subdirs =  findSubdirectories(FOLDER_PATH);
-
-        for (String name: subdirs) {
-
-            System.out.println(name);
-        }
+        getImageFolders(Directories.EXTRACTION_FOLDER);
     }
 
     public static File[] findFile(String filePath, String fileEnging){
@@ -56,4 +50,45 @@ public class FileFinderUtils {
 
         return mainDirectoryAdded;
     }
+
+    public static List<File> getImageFolders(String extractionFolderPath){
+
+        List<String> extractionFolders = findSubdirectories(extractionFolderPath);
+        List<String> stringImageFolders = findSubdirectories(extractionFolders.get(0)+"\\");
+        List<File> imageFolders = new ArrayList<>();
+
+        System.out.println(stringImageFolders.size());
+
+        for (int i = 0; i < stringImageFolders.size(); i++) {
+
+            File file = new File(stringImageFolders.get(i));
+            imageFolders.add(file);
+            System.out.println("Image folder: "+file.getName());
+
+        }
+
+        return imageFolders;
+
+    }
+
+    public static void findImage(File[] imageFolder){
+
+        String[] imageTypes = {".jpg",".png"};
+
+        for( int i = 0; i < imageFolder.length; i++){
+
+
+
+
+            for (String imageType: imageTypes) {
+
+
+
+
+            }
+
+        }
+    }
+
+
 }

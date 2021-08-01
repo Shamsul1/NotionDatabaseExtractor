@@ -1,7 +1,6 @@
 import Directories.Directories;
 import Model.Question;
 import Utils.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -16,18 +15,25 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        String VALIDATION_STATE = UserInputUtils.getValidationStateUserInpu();
         List<Question> questions;
 
-        extractZipFiles();
-        converCSVtoXLSX();
-        questions = getValidQuestions();
-        getAnswers(questions);
-        printQuestions(questions);
+        extractZipFiles(VALIDATION_STATE);
+        FinalizeUtils.openTextFile(new File(Directories.OUTPUT_TEXT_FILE_PATH));
     }
 
+    private static void extracted(String VALIDATION_STATE, StringBuilder outputSB) throws Exception {
+        List<Question> questions;
+        converCSVtoXLSX();
+        questions = getValidQuestions(VALIDATION_STATE);
+        ProcessQuestionUtils.removeSymbols(questions);
+        getAnswers(questions);
+        printQuestions(questions);
+        //ProcessQuestionUtils.stylingAnswers(questions,VALIDATION_STATE);
+        OutputUtils.output(questions, VALIDATION_STATE, outputSB);
 
-
-
+        FinalizeUtils.cleanFolder(Directories.EXTRACTION_FOLDER);
+    }
 
 
     // Find and unzips zip files
@@ -45,16 +51,19 @@ public class Main {
 
 
     }
-    private static void extractZipFiles(){
+    private static void extractZipFiles(String VALIDATION_STATE) throws Exception {
 
+        StringBuilder outputSB = new StringBuilder();
         File[] files = getZipFiles();
 
         for (File file: files) {
 
             UnzipUtils.unZip(file.getAbsolutePath(),EXTRACTION_FOLDER);
-
+            extracted(VALIDATION_STATE, outputSB);
 
         }
+
+        OutputUtils.writeText(outputSB.toString());
 
     }
 
@@ -92,8 +101,9 @@ public class Main {
         System.out.println("---------------------------------------------------");
         return files[0].getAbsolutePath();
     }
-    private static List<Question> getValidQuestions() throws IOException {
-        String VALIDATION_STATE = UserInputUtils.getValidationStateUserInpu();
+    private static List<Question> getValidQuestions(String VALIDATION_STATE) throws IOException {
+
+
         String filePath = getXlSXfile();
         List<Question> questions = ExcelUtils.getValidQuestions(filePath,VALIDATION_STATE);
         return questions;
@@ -110,6 +120,8 @@ public class Main {
         List<String> trimmedMDfiles = ProcessFileUtils.trimIDs(mdFiles);
 
         ProcessQuestionUtils.addMatchingMdFiles(questions,trimmedMDfiles);
+
+
         ProcessQuestionUtils.addMdAbsolutePath(mdFiles,questions);
         ProcessQuestionUtils.addAnswers(questions);
 

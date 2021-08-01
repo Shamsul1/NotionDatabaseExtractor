@@ -10,5 +10,6 @@
     <orderEntry type="library" exported="" name="commons-collections4-4.1" level="project" />
     <orderEntry type="library" exported="" name="aspose-words-19.7-javadoc" level="project" />
     <orderEntry type="library" exported="" name="commonmark-test-util-0.17.2-javadoc" level="project" />
+    <orderEntry type="library" exported="" name="commons-io-2.10.0-javadoc" level="project" />
   </component>
 </module>

@@ -3,13 +3,14 @@ package Utils;
 import Directories.Directories;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class UserInputUtils {
 
     public static void main(String[] args) {
 
-
     }
+
 
 
 
@@ -19,6 +20,7 @@ public class UserInputUtils {
         String[] sports = { "Review", "Learned", "Learn", "Anki" };
         String res = (String) JOptionPane.showInputDialog(null, "What questions would you like to get?", "Notion Database Extractor",
                 JOptionPane.PLAIN_MESSAGE, null, sports, sports[0]);
+
 
         switch (res) {
             case "Review" -> {

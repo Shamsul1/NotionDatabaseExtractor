@@ -54,6 +54,7 @@ public class ExcelUtils {
             FileOutputStream fileOutputStream =  new FileOutputStream(xlsxFileAddress);
             workBook.write(fileOutputStream);
             fileOutputStream.close();
+            br.close();
             System.out.println("Done");
         } catch (Exception ex) {
             System.out.println(ex.getMessage()+"Exception in try");
@@ -92,11 +93,19 @@ public class ExcelUtils {
 
     private static Question pickQuestions(Row row, String stateValidity){
 
+        if(row.getCell(3) == null){
+
+            System.out.println(row.getCell(1).getStringCellValue()+" has a null state!");
+            return null;
+
+        }
         if(row.getCell(3).getStringCellValue().equalsIgnoreCase(stateValidity)){
 
             Question question = new Question();
 
             question.setQuestion(row.getCell(1).getStringCellValue());
+            question.setQuetionOriginal(row.getCell(1).getStringCellValue());
+            question.setTag(row.getCell(2).getStringCellValue());
             return question;
 
         }else {

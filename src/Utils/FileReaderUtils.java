@@ -1,8 +1,4 @@
 package Utils;
-
-
-import Directories.Directories;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,6 +10,7 @@ public class FileReaderUtils {
     public static final String NOT_VALID3= "State:";
     public static final String NOT_VALID4= "Tag:";
     public static final String NOT_VALID5= ".png";
+    public static final String NOT_VALID6= ".jpg";
 
 
 
@@ -35,17 +32,20 @@ public class FileReaderUtils {
 
            if(validateLine(st) != null){
 
-               answer.append(validateLine(st));
+               answer.append(validateLine(st)).append("\n");
+
 
            }
         }
+
+        br.close();
         return answer;
     }
 
 
     public static String validateLine(String line){
 
-        String[] validaitonRules = {NOT_VALID1,NOT_VALID2,NOT_VALID3,NOT_VALID4,NOT_VALID5};
+        String[] validaitonRules = {NOT_VALID1,NOT_VALID2,NOT_VALID3,NOT_VALID4,NOT_VALID5,NOT_VALID6};
 
         boolean isMatch = false;
 

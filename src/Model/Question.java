@@ -2,10 +2,28 @@ package Model;
 
 public class Question {
 
+    private String quetionOriginal;
     private String question;
     private String answer;
     private String  mdFileName;
     private String mdAbsolutePath;
+    private String tag;
+
+    public String getQuetionOriginal() {
+        return quetionOriginal;
+    }
+
+    public void setQuetionOriginal(String quetionOriginal) {
+        this.quetionOriginal = quetionOriginal;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public String getAnswer() {
         return answer;

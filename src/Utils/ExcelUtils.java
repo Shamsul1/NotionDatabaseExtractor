@@ -95,7 +95,7 @@ public class ExcelUtils {
 
         if(row.getCell(3) == null){
 
-            System.out.println(row.getCell(1).getStringCellValue()+" has a null state!");
+            //System.out.println(row.getCell(1).getStringCellValue()+" has a null state!");
             return null;
 
         }

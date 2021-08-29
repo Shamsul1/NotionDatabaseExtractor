@@ -29,7 +29,8 @@ public class Main {
         ProcessQuestionUtils.removeSymbols(questions);
         getAnswers(questions);
         printQuestions(questions);
-        //ProcessQuestionUtils.stylingAnswers(questions,VALIDATION_STATE);
+        ProcessQuestionUtils.stylingAnswers(questions,VALIDATION_STATE);
+        ProcessQuestionUtils.addLineBreak(questions,VALIDATION_STATE);
         OutputUtils.output(questions, VALIDATION_STATE, outputSB);
 
         FinalizeUtils.cleanFolder(Directories.EXTRACTION_FOLDER);
@@ -114,7 +115,7 @@ public class Main {
     private static void getAnswers(List<Question> questions) throws Exception {
 
         List<String> subFolders = FileFinderUtils.findSubdirectories(EXTRACTION_FOLDER);
-        String subFolder = subFolders.get(0)+"\\";
+        String subFolder = subFolders.get(0);
 
         File[] mdFiles = FileFinderUtils.findFile(subFolder, ".md");
         List<String> trimmedMDfiles = ProcessFileUtils.trimIDs(mdFiles);

@@ -23,7 +23,7 @@ public class ProcessFileUtils {
 
         for (String word : fileName.split(" ")){
 
-            if(word.length()<15){
+            if(word.length()<30){
                 stringBuffer.append(" ").append(word);
             }
         }
@@ -38,6 +38,7 @@ public class ProcessFileUtils {
 
         for (File file: files) {
 
+            System.out.println("trimmed file: "+getFileIdRemoved(file.getName()) +" sin trim: "+file.getName());
             fileNames.add(getFileIdRemoved(file.getName()));
 
         }

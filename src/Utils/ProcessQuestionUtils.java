@@ -140,13 +140,13 @@ public class ProcessQuestionUtils {
 
                                 line = line.replace("**","");
                                 line = "<b>"+line+"</b>";
-                                st.append(line);
+                                st.append(line).append("\n");
 
                             }else {
 
                                 line = line.replace("*","");
                                 line = "<i>"+line+"</i>";
-                                st.append(line);
+                                st.append(line).append("\n");
                             }
                             System.out.println(line);
                             question.setAnswer(st.toString());
@@ -167,6 +167,31 @@ public class ProcessQuestionUtils {
         }
 
 
+
+    }
+
+    public static void addLineBreak(List<Question> questions, String state){
+
+        if(state.equalsIgnoreCase(Directories.ANKI_STATE)){
+
+            for ( Question question: questions) {
+
+                String answer = question.getAnswer();
+                Scanner scanner = new Scanner(answer);
+                StringBuilder st = new StringBuilder();
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+
+                    st.append(line).append("<br>");
+
+
+                }
+
+                scanner.close();
+
+                question.setAnswer(st.toString());
+            }
+        }
 
     }
 
